@@ -14,16 +14,16 @@ class ExamBrowserApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CBT',
+      title: 'Exam Browser',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
       home: WillPopScope(
         onWillPop: () async {
           return false;
         },
-        child: const HomePage(title: 'CBT'),
+        child: const HomePage(title: 'Exam Browser'),
       ),
     );
   }
@@ -49,8 +49,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: Text(
+          widget.title,
+          style: const TextStyle(color: Colors.white),
+        ),
         actions: const [AppPopupMenuButton()],
       ),
       body: Padding(
@@ -110,8 +113,11 @@ class BrowserScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Browser'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text(
+          'Browser',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         automaticallyImplyLeading: false,
         actions: const [AppPopupMenuButton()],
       ),
@@ -127,9 +133,7 @@ class AppPopupMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       onSelected: (value) {
-        if (value == 'info') {
-          // handle info
-        } else if (value == 'exit') {
+        if (value == 'exit') {
           if (Platform.isAndroid) {
             SystemNavigator.pop();
           } else if (Platform.isIOS) {
@@ -137,10 +141,9 @@ class AppPopupMenuButton extends StatelessWidget {
           }
         }
       },
-      itemBuilder: (BuildContext context) => [
-        const PopupMenuItem(value: 'info', child: Text('Info')),
-        const PopupMenuItem(value: 'exit', child: Text('Exit App'))
-      ],
+      color: Colors.white,
+      itemBuilder: (BuildContext context) =>
+          [const PopupMenuItem(value: 'exit', child: Text('Exit App'))],
     );
   }
 }
